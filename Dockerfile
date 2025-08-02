@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 FROM ubuntu:22.04
 
+ARG GHC_VERSION=9.10.2
+
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y build-essential curl libffi-dev libffi8ubuntu1 libgmp-dev libgmp10 libncurses-dev libncurses5 libtinfo5 libnuma1 git libnuma-dev llvm zlib1g-dev \
@@ -16,4 +18,5 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://get-ghcup.haskell.org | \
 
 ENV PATH=$PATH:/home/haskell/.ghcup/bin
 RUN ghcup install stack
+RUN stack setup ${GHC_VERSION}
 WORKDIR /work
